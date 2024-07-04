@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MapComponent from '@/components/MapComponents';
 import GridPage from '@/components/GridPage';
+import Navbar from '@/components/Navbar';
+import Hero from './components/Hero';
 
 interface Location {
   lat: number;
@@ -67,12 +69,15 @@ const App: React.FC = () => {
   }, []);
 
   return (
+    <>      <Navbar />
     <Router>
       <Routes>
-        <Route path="/" element={<MapComponent locations={locations} setSelectedLocation={setSelectedLocation} />} />
+        <Route path="/" element={<Hero />} />
+        <Route path="/map" element={<MapComponent locations={locations} setSelectedLocation={setSelectedLocation} />} />
         <Route path="/grid" element={<GridPage selectedLocation={selectedLocation}/>} />
       </Routes>
     </Router>
+    </>
   );
 };
 
