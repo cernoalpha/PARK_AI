@@ -5,8 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
 
 const containerStyle = {
-  width: '80%',
-  height: '500px',
+  width: '95%',
+  height: '550px',
   
 };
 
