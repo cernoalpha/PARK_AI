@@ -19,8 +19,8 @@ interface GridPageProps {
 }
 
 const containerStyle = {
-  width: '40%',
-  height: '500px',
+  width: '100%',
+  height: '700px',
 };
 
 const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
@@ -86,8 +86,8 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
   };
 
   return (
-    <div className='container mt-20 '>
-      <button className='bg-red-900' onClick={() => navigate('/')} style={{ marginBottom: '10px' }}>
+    <div>
+      <button onClick={() => navigate('/')} style={{ marginBottom: '10px' }}>
         Back to Map
       </button>
       <h1>{name}</h1>
@@ -96,8 +96,7 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
         currentFloor={currentFloor}
         onFloorChange={handleFloorChange}
       />
-      <div className='mt-10 flex justify-around align-items-center'>
-      <MapContainer className='p-10 mt-20 ' style={containerStyle} center={[lat, lng]} zoom={15}>
+      <MapContainer style={containerStyle} center={[lat, lng]} zoom={15}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -114,16 +113,14 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
           <Polyline positions={path} color="blue" />
         )}
       </MapContainer>
-      
       {parkingData[currentFloor] && (
         <ParkingGrid
           spaces={parkingData[currentFloor]}
           rows={10}
           cols={10}
         />
+        
       )}
-      </div>
-
     </div>
   );
 };
