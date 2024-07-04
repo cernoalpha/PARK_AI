@@ -4,16 +4,18 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
 
+const windowHeight = window.innerHeight;
+const height = 0.8* windowHeight
 const containerStyle = {
   width: '95%',
-  height: '550px',
-  
+  height: height,
 };
 
 interface Location {
   lat: number;
   lng: number;
   name: string;
+  free: number;
   description: string;
   floors: { [floor: string]: boolean[] };
 }
@@ -80,7 +82,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocat
             eventHandlers={{
               click: () => {
                 setSelectedLocation(location);
-                navigate('/grid');
               },
             }}
           >

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 import MapComponent from '@/components/MapComponents';
 import GridPage from '@/components/GridPage';
 import Navbar from '@/components/Navbar';
@@ -9,47 +10,19 @@ interface Location {
   lat: number;
   lng: number;
   name: string;
+  free: number;
   description: string;
   floors: { [floor: string]: boolean[] };
 }
 
 const fetchLocationsWithGridData = async (): Promise<Location[]> => {
-  const generateRandomBooleanArray = (length: number): boolean[] => {
-    return Array(length).fill(true).map(() => Math.random() > 0.5);
-  };
-
-  const locations: Location[] = [
-    {
-      lat: 12.9132462,
-      lng: 77.5635128,
-      name: 'New York City',
-      description: 'The big apple.',
-      floors: {
-        '1': generateRandomBooleanArray(6),
-        '2': generateRandomBooleanArray(6),
-      },
-    },
-    {
-      lat: 12.9094733,
-      lng: 77.5644549,
-      name: 'Los Angeles',
-      description: 'The city of angels.',
-      floors: {
-        '1': generateRandomBooleanArray(6),
-        '2': generateRandomBooleanArray(6),
-      },
-    },
-  ];
-
-  locations.forEach(location => {
-    Object.keys(location.floors).forEach(floor => {
-      if (Math.random() > 0.8) { 
-        location.floors[floor] = generateRandomBooleanArray(6);
-      }
-    });
-  });
-
-  return locations;
+  try {
+    const response = await axios.get('http://127.0.0.1:8080/parking_status');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    throw error;
+  }
 };
 
 const App: React.FC = () => {
@@ -58,25 +31,30 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchLocationsWithGridData();
-      setLocations(data);
-      localStorage.setItem('locations', JSON.stringify(data)); 
+      try {
+        const data = await fetchLocationsWithGridData();
+        setLocations(data);
+        localStorage.setItem('locations', JSON.stringify(data)); 
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5000); 
+    const interval = setInterval(fetchData, 10000); 
     return () => clearInterval(interval); 
   }, []);
 
   return (
-    <>      <Navbar />
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/map" element={<MapComponent locations={locations} setSelectedLocation={setSelectedLocation} />} />
-        <Route path="/grid" element={<GridPage selectedLocation={selectedLocation}/>} />
-      </Routes>
-    </Router>
+    <>
+      <Navbar />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/map" element={<MapComponent locations={locations} setSelectedLocation={setSelectedLocation} />} />
+          <Route path="/grid" element={<GridPage selectedLocation={selectedLocation} />} />
+        </Routes>
+      </Router>
     </>
   );
 };
