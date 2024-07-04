@@ -27,7 +27,7 @@ interface GridPageProps {
 }
 
 const containerStyle = {
-  width: "706px",
+  width: "100%", // Use full width
   height: "500px",
 };
 
@@ -51,7 +51,6 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
         );
         if (updatedLocation) {
           setParkingData(updatedLocation.floors);
-
           setLoading(false);
         }
       }
@@ -118,9 +117,9 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
         onFloorChange={handleFloorChange}
       />
       <div className="mt-10 flex justify-around align-items-center">
-        <div className="flex-1 w-64">
+        <div className="flex-1 mr-4">
           <MapContainer
-            className="p-10  "
+            className="p-10"
             style={containerStyle}
             center={[lat, lng]}
             zoom={13}
@@ -140,16 +139,12 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
             {path.length > 0 && <Polyline positions={path} color="blue" />}
           </MapContainer>
         </div>
-        <div className="flex-1 w-64">
+        <div className="flex-1">
           {loading ? (
             <Loading /> // Show loading spinner
           ) : (
             parkingData[currentFloor] && (
-              <ParkingGrid
-                spaces={parkingData[currentFloor]}
-                rows={10}
-                cols={10}
-              />
+              <ParkingGrid spaces={parkingData[currentFloor]} />
             )
           )}
         </div>
