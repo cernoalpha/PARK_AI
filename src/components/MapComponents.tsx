@@ -5,8 +5,9 @@ import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
 
 const containerStyle = {
-  width: '100%',
-  height: '700px',
+  width: '80%',
+  height: '500px',
+  
 };
 
 interface Location {
@@ -65,7 +66,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocat
   }, []);
 
   return (
-    <div>
+    <div className='container mt-32 mb-auto flex justify-center align-items-center'>
       <MapContainer style={containerStyle} center={currentPosition ? [currentPosition.lat, currentPosition.lng] : [12.911086200957206, 77.5645624121842]} zoom={20}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
