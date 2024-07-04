@@ -54,9 +54,11 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
       } catch (error) {
         console.error("Error fetching parking frame:", error);
       }
-      const storedLocations = localStorage.getItem("locations");
-      if (storedLocations) {
-        const locations: Location[] = JSON.parse(storedLocations);
+
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/parking_status');
+        const locations: Location[] = response.data;
+        console.log(locations)
         const updatedLocation = locations.find(
           (loc) => loc.name === selectedLocation?.name
         );
@@ -64,6 +66,8 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
           setParkingData(updatedLocation.floors);
           setLoading(false);
         }
+      } catch (error) {
+        console.error("Error fetching parking status:", error);
       }
     }, 10000);
 
@@ -108,10 +112,8 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
 
   const { name, floors, lat, lng } = selectedLocation;
 
-
   return (
     <div className="container mt-20 ">
-
       <h1 className="text-2xl text-center">{name}</h1>
       <div className="mt-10 flex justify-around align-items-center">
         <div className="flex-1 mr-4">
@@ -149,7 +151,6 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
               </>
             )
           )}
-
         </div>
       </div>
     </div>
