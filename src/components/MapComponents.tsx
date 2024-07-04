@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import L, { LatLng } from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import L, { LatLng } from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { useNavigate } from "react-router-dom";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 const containerStyle = {
-  width: '95%',
-  height: '550px',
-  
+  width: "95%",
+  height: "550px",
 };
 
 interface Location {
@@ -23,14 +24,17 @@ interface MapComponentProps {
   setSelectedLocation: (location: Location) => void;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocation }) => {
+const MapComponent: React.FC<MapComponentProps> = ({
+  locations,
+  setSelectedLocation,
+}) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng | null>(null);
   const navigate = useNavigate();
 
   const MyLocationMarker = () => {
     const map = useMap();
 
-    map.on('locationfound', (e) => {
+    map.on("locationfound", (e) => {
       setCurrentPosition(e.latlng);
       map.flyTo(e.latlng, map.getZoom());
     });
@@ -40,7 +44,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocat
     // }, [map]);
 
     const myLocationIcon = L.icon({
-      iconUrl: '/public/map-pin.png',
+      iconUrl: "/public/map-pin.png",
       iconSize: [35, 35],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
@@ -55,49 +59,69 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocat
   };
 
   useEffect(() => {
-    if ('geolocation' in navigator) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         setCurrentPosition(new L.LatLng(latitude, longitude));
       });
     } else {
-      alert('Geolocation is not supported by this browser.');
+      alert("Geolocation is not supported by this browser.");
     }
   }, []);
 
   return (
-    <div className='container mt-32 mb-auto flex justify-center align-items-center'>
-      <MapContainer style={containerStyle} center={currentPosition ? [currentPosition.lat, currentPosition.lng] : [12.911086200957206, 77.5645624121842]} zoom={20}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <MyLocationMarker />
-        {locations.map((location, index) => (
-          <Marker
-            key={index}
-            position={[location.lat, location.lng]}
-            eventHandlers={{
-              click: () => {
-                setSelectedLocation(location);
-                navigate('/grid');
-              },
-            }}
-          >
-            <Popup>
-              <div>
-                <h2>{location.name}</h2>
-                <p>{location.description}</p>
-                <button onClick={() => {
+    <>
+    <div className="container">
+    <div className="mt-20 flex justify-between container">
+      <Input className="" placeholder="search here.." />
+      <Button className="">My loc</Button>
+      </div>
+      <div className=" mt-5 mb-auto flex justify-center align-items-center">
+        <MapContainer
+          style={containerStyle}
+          center={
+            currentPosition
+              ? [currentPosition.lat, currentPosition.lng]
+              : [12.911086200957206, 77.5645624121842]
+          }
+          zoom={20}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <MyLocationMarker />
+          {locations.map((location, index) => (
+            <Marker
+              key={index}
+              position={[location.lat, location.lng]}
+              eventHandlers={{
+                click: () => {
                   setSelectedLocation(location);
-                  navigate('/grid');
-                }}>Show Parking</button>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
+                  navigate("/grid");
+                },
+              }}
+            >
+              <Popup>
+                <div>
+                  <h2>{location.name}</h2>
+                  <p>{location.description}</p>
+                  <button
+                    onClick={() => {
+                      setSelectedLocation(location);
+                      navigate("/grid");
+                    }}
+                  >
+                    Show Parking
+                  </button>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
+      </div>
+    </>
   );
 };
 
