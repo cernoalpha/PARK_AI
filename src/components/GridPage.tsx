@@ -103,13 +103,7 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
 
   return (
     <div className="container mt-20 ">
-      <button
-        className="bg-red-900"
-        onClick={() => navigate("/")}
-        style={{ marginBottom: "10px" }}
-      >
-        Back to Map
-      </button>
+      
       <h1>{name}</h1>
       <FloorSwitcher
         floors={Object.keys(floors)}
