@@ -168,7 +168,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 eventHandlers={{
                   click: () => {
                     setSelectedLocation(location);
-                    navigate("/grid");
                   },
                 }}
               >
