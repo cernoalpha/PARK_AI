@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L, { LatLng } from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useNavigate } from 'react-router-dom';
 
 const containerStyle = {
   width: '100%',
-  height: '400px'
+  height: '700px',
 };
 
 interface Location {
@@ -13,34 +14,40 @@ interface Location {
   lng: number;
   name: string;
   description: string;
+  floors: { [floor: string]: boolean[] };
 }
 
 interface MapComponentProps {
   locations: Location[];
+  setSelectedLocation: (location: Location) => void;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ locations }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ locations, setSelectedLocation }) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const navigate = useNavigate();
 
- 
-
-//   useEffect(() => {
-//     map.locate();
-//   }, [map]);
-  
   const MyLocationMarker = () => {
-
     const map = useMap();
 
     map.on('locationfound', (e) => {
       setCurrentPosition(e.latlng);
       map.flyTo(e.latlng, map.getZoom());
     });
-    console.log("marker render")
+
+    // useEffect(() => {
+    //   map.locate();
+    // }, [map]);
+
+    const myLocationIcon = L.icon({
+      iconUrl: '/public/map-pin.png',
+      iconSize: [35, 35],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
 
     return currentPosition === null ? null : (
-      <Marker position={currentPosition}>
+      <Marker position={currentPosition} icon={myLocationIcon}>
         <Popup>You are here</Popup>
       </Marker>
     );
@@ -50,7 +57,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations }) => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        console.log(latitude, longitude)
         setCurrentPosition(new L.LatLng(latitude, longitude));
       });
     } else {
@@ -59,33 +65,38 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations }) => {
   }, []);
 
   return (
-    <MapContainer style={containerStyle} center={currentPosition ? [currentPosition.lat, currentPosition.lng] : [12.911086200957206,77.5645624121842]} zoom={20}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <MyLocationMarker />
-      {locations.map((location, index) => (
-        <Marker
-          key={index}
-          position={[location.lat, location.lng]}
-          eventHandlers={{
-            click: () => {
-              setSelectedLocation(location);
-            },
-          }}
-        >
-          {selectedLocation && selectedLocation.lat === location.lat && selectedLocation.lng === location.lng && (
+    <div>
+      <MapContainer style={containerStyle} center={currentPosition ? [currentPosition.lat, currentPosition.lng] : [12.911086200957206, 77.5645624121842]} zoom={20}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <MyLocationMarker />
+        {locations.map((location, index) => (
+          <Marker
+            key={index}
+            position={[location.lat, location.lng]}
+            eventHandlers={{
+              click: () => {
+                setSelectedLocation(location);
+                navigate('/grid');
+              },
+            }}
+          >
             <Popup>
               <div>
                 <h2>{location.name}</h2>
                 <p>{location.description}</p>
+                <button onClick={() => {
+                  setSelectedLocation(location);
+                  navigate('/grid');
+                }}>Show Parking</button>
               </div>
             </Popup>
-          )}
-        </Marker>
-      ))}
-    </MapContainer>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 };
 
