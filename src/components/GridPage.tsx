@@ -121,6 +121,7 @@ const GridPage: React.FC<GridPageProps> = ({ selectedLocation }) => {
           rows={10}
           cols={10}
         />
+        
       )}
       </div>
 
