@@ -6,7 +6,7 @@ interface ParkingGridProps {
 
 const ParkingGrid: React.FC<ParkingGridProps> = ({ spaces }) => {
   const cols = 6; // Fixing columns to 6
-  const rows = Math.ceil(spaces.length / cols);
+  // const rows = Math.ceil(spaces.length / cols);
 
   const gridStyle = {
     display: 'grid',
