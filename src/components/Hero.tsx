@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
           Welcome to Spot Rover
         </h1>
         <p className="text-xl sm:text-2xl md:text-3xl mb-8 max-w-3xl mx-auto leading-relaxed">
-          Discover new places and adventures with ease.
+          Discover parkings and adventures with ease.
         </p>
         <a href="/map" className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full shadow-lg transition-transform hover:scale-105">
           Get Started

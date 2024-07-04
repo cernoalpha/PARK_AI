@@ -25,8 +25,8 @@ const fetchLocationsWithGridData = async (): Promise<Location[]> => {
       name: 'New York City',
       description: 'The big apple.',
       floors: {
-        '1': generateRandomBooleanArray(20),
-        '2': generateRandomBooleanArray(20),
+        '1': generateRandomBooleanArray(6),
+        '2': generateRandomBooleanArray(6),
       },
     },
     {
@@ -35,8 +35,8 @@ const fetchLocationsWithGridData = async (): Promise<Location[]> => {
       name: 'Los Angeles',
       description: 'The city of angels.',
       floors: {
-        '1': generateRandomBooleanArray(20),
-        '2': generateRandomBooleanArray(20),
+        '1': generateRandomBooleanArray(6),
+        '2': generateRandomBooleanArray(6),
       },
     },
   ];
@@ -44,7 +44,7 @@ const fetchLocationsWithGridData = async (): Promise<Location[]> => {
   locations.forEach(location => {
     Object.keys(location.floors).forEach(floor => {
       if (Math.random() > 0.8) { 
-        location.floors[floor] = generateRandomBooleanArray(20);
+        location.floors[floor] = generateRandomBooleanArray(6);
       }
     });
   });
