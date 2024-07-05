@@ -7,7 +7,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { filterParkingSpaces } from "@/hooks/ParkingSpaceFilter"
 import { geocodeLocation } from '@/hooks/geocode'
-import Loading from "./Loading";
+
 
 const containerStyle = {
   width: "95%",
@@ -78,7 +78,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   }, []);
 
   // handle input
-  const [searchText, setSearchText] = useState<string>(""); 
+  const [searchText, setSearchText] = useState<string>("");
   const [textLoading, setTextLoading] = useState<boolean>(false);
 
   const handleSearch = async () => {
@@ -118,11 +118,11 @@ const MapComponent: React.FC<MapComponentProps> = ({
       handleSearch();
     }
   };
-  
+
   return (
-    <> 
+    <>
       <div className="container">
-      <div className="mt-20 flex justify-between container">
+        <div className="mt-20 flex justify-between container">
           {textLoading ? (
             <div>Loading...</div>
           ) : (
@@ -138,7 +138,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             className=""
             onClick={() => {
               if (mapRef.current && currentPosition) {
-                mapRef.current.flyTo(currentPosition, 17); 
+                mapRef.current.flyTo(currentPosition, 17);
               }
             }}
           >
@@ -153,7 +153,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 ? [currentPosition.lat, currentPosition.lng]
                 : [12.911086200957206, 77.5645624121842]
             }
-            zoom={20}
+            zoom={17}
             ref={mapRef}
           >
             <TileLayer

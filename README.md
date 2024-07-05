@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+## Intoduction
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Our parking app uniquely combines machine learning for real-time space detection, predictive alerts for fast-filling spaces, offering a tailored, intelligent solution for seamless parking at malls, airports, and hospitals.
 
-Currently, two official plugins are available:
+## KEY FEATURES
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Real-Time Updates: Constantly updated information on parking space availability.
+Smart Alerts: Notifications for areas where parking is filling up fast.
+User-Friendly Interface: A visually appealing and intuitive design for seamless navigation
 
-## Expanding the ESLint configuration
+## SOCIAL IMPACT
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Our parking app revolutionizes parking at malls, hospitals, airports, and public spaces by providing real-time updates on parking availability. This technology enhances convenience, reduces stress, and saves time for users. It also cuts down on traffic congestion and emissions, contributing to a greener environment. For businesses and institutions, it leads to better space utilization and increased customer satisfaction, ultimately promoting a more efficient and pleasant parking experience for all.
 
-- Configure the top-level `parserOptions` property like this:
+## FUTURE SCOPE
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Looking ahead, our app plans to launch mobile versions for iOS and Android, improving user access to real-time updates on parking availability and EV charge points. We'll enhance predictive analytics for more accurate forecasts. Navigation capabilities will guide users directly to open spots, ensuring a streamlined parking experience across diverse venues.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## TEAM CONACT DETAILS
+
+Mir Shahzad Mubeen   mirshahzadmubeen1@gmail.com
+Mohammed Armaan      armaan0243@gmail.com
+Gattu Sai Ganesh     saiganeshgattu123@gmail.com
+Sanjal S Eralil      sanjaleralil@gmail.com
+
+ 
+ ## Literature Review
+
+It is estimated that around 25–40% of the traffic congestion in the city center is caused by vehicles looking for parking spots and, on average, a driver spends about 7.8 min finding a parking spot
+[text](https://www.mdpi.com/1424-8220/21/9/3148#:~:text=MDVRP%20used%20a%20Time%2DDependent,travel%20time%20for%20all%20drivers.)
+
+The research into the parking reservation systems and parking guidance and information systems
+[text](https://www.mdpi.com/2624-6511/4/2/32)
+
+
+## Installation adn Run
+
+npm install
+
+npm run dev
+
+
+## Backend 
+
+[text](https://github.com/cernoalpha/PARK_AI_BACKEND.git)
