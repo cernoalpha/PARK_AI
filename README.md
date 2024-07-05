@@ -27,10 +27,10 @@ Sanjal S Eralil      sanjaleralil@gmail.com
  ## Literature Review
 
 It is estimated that around 25–40% of the traffic congestion in the city center is caused by vehicles looking for parking spots and, on average, a driver spends about 7.8 min finding a parking spot
-[text](https://www.mdpi.com/1424-8220/21/9/3148#:~:text=MDVRP%20used%20a%20Time%2DDependent,travel%20time%20for%20all%20drivers.)
+[Link](https://www.mdpi.com/1424-8220/21/9/3148#:~:text=MDVRP%20used%20a%20Time%2DDependent,travel%20time%20for%20all%20drivers.)
 
 The research into the parking reservation systems and parking guidance and information systems
-[text](https://www.mdpi.com/2624-6511/4/2/32)
+[Link](https://www.mdpi.com/2624-6511/4/2/32)
 
 
 ## Installation adn Run
@@ -42,4 +42,4 @@ npm run dev
 
 ## Backend 
 
-[text](https://github.com/cernoalpha/PARK_AI_BACKEND.git)
+[Github_Link](https://github.com/cernoalpha/PARK_AI_BACKEND.git)
