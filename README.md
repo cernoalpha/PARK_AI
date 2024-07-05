@@ -33,7 +33,7 @@ The research into the parking reservation systems and parking guidance and infor
 [Link](https://www.mdpi.com/2624-6511/4/2/32)
 
 
-## Installation adn Run
+## Installation and Run
 
 npm install
 
